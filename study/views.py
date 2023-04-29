@@ -1,39 +1,42 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Subject
-from .subjects import SubjectForm
+from .models import Assignment
+from .forms import AssignmentForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 
-def get_assignment_list(request):
-    subjects = Subject.objects.all()
-    context = {'subjects': subjects}
+def dashboard(request):
+    assignment = Assignment.objects.all()
+    context = {'assignment': assignment}
     return render(request, 'study/dashboard.html', context)
 
 
-def add_subject(request):
+def add_assignment(request):
     if request.method == 'POST':
-        form = SubjectForm(request.POST)
+        form = AssignmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('get_assignment_list')
-    form = SubjectForm()
+            return redirect('dashboard')
+    form = AssignmentForm()
     context = {
         'form': form
     }
-    return render(request, 'study/add_subject.html', context)
+    return render(request, 'study/add_assignment.html', context)
 
 
-def edit_subject(request, subject_id):
-    subject=get_object_or_404(Subject, id=subject_id)
+def edit_assignment(request, assignment_id):
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+    if request.user != assignment.tutor:
+        return redirect('dashboard')
     if request.method == 'POST':
-        form = SubjectForm(request.POST, instance=subject)
+        form = AssignmentForm(request.POST, instance=assignment)
         if form.is_valid():
             form.save()
-            return redirect('get_assignment_list')
-    form = SubjectForm()
+            return redirect('dashboard')
+    form = AssignmentForm()
     context = {
         'form': form
     }
-    return render(request, 'study/edit_subject.html', context)
+    return render(request, 'study/edit_assignment.html', context)
 

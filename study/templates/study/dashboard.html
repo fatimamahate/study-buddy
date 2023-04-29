@@ -1,31 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Assignment</h1>
-    <a href="/subject_add">Add a Subject</a>
-    <table>
-        {% for subject in subjects %}
-                <tr>
-                    <td>{{ subject.name }}</td>
-                    <td>
-                        <a href="/subject_edit/{{ subject.id }}">
-                            <button>Edit Subject</button>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="/subject_remove/{{ subject.id }}">
-                            <button>Remove Subject</button>
-                        </a>
-                    </td>
-                </tr>
-                
+{% extends "base.html" %}
+{% block content %}
+    <body>
+        <h1>Assigned</h1>
+            <a href="/assignment_add">Add an assignment</a>
+        <table>
+            {% for assignment in request.user.created_assignments %}
+            <tr>
+                <td>{{ assignment.title }}</td>
+                <td>
+                    <a href="/assignment_edit/{{ assignment.id }}">
+                        <button>Edit Assignment</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="/assignment_remove/{{ subject.id }}">
+                        <button>Remove Assignment</button>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </table>
-</body>
-</html>
+        </table>
+        <table>
+            {% for assignment in request.user.assignments_todo %}
+            <tr>
+                <td>{{ assignment.title }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock content %}

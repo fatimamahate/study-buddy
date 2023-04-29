@@ -9,19 +9,9 @@
 </head>
 
 <body>
-    <h1>Add a Subject</h1>
-
-    <form method="POST" action="subject_add">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div>
-            <p>
-                <button type="submit">Add Subject</button>
-            </p>
-        </div>
-    </form>
-
-
+    {% block content %}
+    
+    {% endblock content %}
 </body>
 
 </html>
