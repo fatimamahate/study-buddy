@@ -1,7 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 # Create your views here.
 
 
-def test_response(request):
-    return HttpResponse("HeY!")
+def get_assignment_list(request):
+    return render(request, 'study/dashboard.html')

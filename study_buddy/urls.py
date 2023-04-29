@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from study.views import test_response
+from study.views import get_assignment_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hey/', test_response, name='hey')
+    path('', get_assignment_list, name='get_assignment_list')
 ]
