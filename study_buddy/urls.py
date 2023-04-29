@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', get_assignment_list, name='get_assignment_list'),
     path('subject_add', add_subject, name='add'),
-    path('subject_edit', edit_subject, name='edit'),
+    path('subject_edit/<subject_id>', edit_subject, name='edit'),
     # path('subject_remove', add_subject, name='remove')
 ]

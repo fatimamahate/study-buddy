@@ -25,8 +25,9 @@ def add_subject(request):
 
 
 def edit_subject(request, subject_id):
+    subject=get_object_or_404(Subject, id=subject_id)
     if request.method == 'POST':
-        form = SubjectForm(request.POST)
+        form = SubjectForm(request.POST, instance=subject)
         if form.is_valid():
             form.save()
             return redirect('get_assignment_list')
